@@ -1,2 +1,2 @@
 # thread.js
-Simply, lightweight and easy multi-thread library
+Simply, lightweight and easy multi-thread JavaScript library
