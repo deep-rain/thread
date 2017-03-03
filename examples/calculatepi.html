@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<title>Thread.js - calculate PI with BigNumber.js example</title>
+<script src="../dist/thread.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/atelier-heath-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/4.0.0/bignumber.min.js"></script>
+<style>
+    body {
+        background-color: #121011;
+        color: lightgray;
+    }
+    
+    .jumbotron {
+        background-color: #333333;
+    }
+    
+    pre {
+        color: lightgray;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Calculate PI with BigNumber.js</h1>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+            </div>
+            <div id="indicator">��</div>
+        </div>
+        <button class="btn btn-outline-secondary" onclick="syncCalc();">Normal <small>( It seems like frozen. )</small></button>
+        <button class="btn btn-outline-secondary" onclick="threadCalc();">Thread.js</button>
+        <div id="result" class="row col-sm-12">
+            <h3>results</h3>
+        </div>
+
+        <h2>source</h2>
+        <pre><code>
+var i = 0;
+var el = document.querySelector("#indicator");
+
+setInterval(function(){
+    el.style.marginLeft=(100 * Math.sin(i+=0.01) + 100) + "px";
+},10)
+
+function syncCalc(){
+    showResult(calcPi(2000));
+}
+
+function threadCalc(){
+    var thread = new Thread(calcPi, "https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/4.0.0/bignumber.min.js");
+    thread.once(2000).done(function(a){
+        showResult(a);
+    });
+}
+
+var resultElement = document.querySelector("#result");
+function showResult(d){
+    var element = document.createElement('p');
+    element.textContent = d; 
+    resultElement.appendChild(element);
+}
+
+function calcPi(n){
+    BigNumber.config({ DECIMAL_PLACES: n + 10, ROUNDING_MODE: BigNumber.ROUND_DOWN });
+    var rep = Math.ceil(Math.log2(n));
+    var a = new BigNumber(1);
+    var an;
+    var b = new BigNumber(1).div(new BigNumber(2).sqrt());
+    var t = new BigNumber(1 / 4);
+    var p = new BigNumber(1);
+    
+    console.time();
+    for(i = 0; i < rep; i++){
+        an = a.add(b).div(2);
+        b = a.mul(b).sqrt();
+        t = t.sub(p.mul(a.sub(an).pow(2)));
+        p = p.mul(2);
+        a = an;
+    }
+    console.timeEnd();
+    return a.add(b).pow(2).div(t.times(4)).toString().slice(0,n+2);
+}
+
+</code></pre>
+
+    </div>
+</body>
+<script>
+    var i = 0;
+    var el = document.querySelector("#indicator");
+
+    setInterval(function() {
+        el.style.marginLeft = (100 * Math.sin(i += 0.01) + 100) + "px";
+    }, 10)
+
+    function syncCalc() {
+        showResult(calcPi(2000));
+    }
+
+    function threadCalc() {
+        var thread = new Thread(calcPi, "https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/4.0.0/bignumber.min.js");
+        thread.once(2000).done(function(a) {
+            showResult(a);
+        });
+    }
+
+    var resultElement = document.querySelector("#result");
+
+    function showResult(d) {
+        var element = document.createElement('pre');
+        element.textContent = d;
+        resultElement.appendChild(element);
+    }
+
+    function calcPi(n) {
+        BigNumber.config({
+            DECIMAL_PLACES: n + 10,
+            ROUNDING_MODE: BigNumber.ROUND_DOWN
+        });
+        var rep = Math.ceil(Math.log2(n));
+        var a = new BigNumber(1);
+        var an;
+        var b = new BigNumber(1).div(new BigNumber(2).sqrt());
+        var t = new BigNumber(1 / 4);
+        var p = new BigNumber(1);
+
+        console.time();
+        for (i = 0; i < rep; i++) {
+            an = a.add(b).div(2);
+            b = a.mul(b).sqrt();
+            t = t.sub(p.mul(a.sub(an).pow(2)));
+            p = p.mul(2);
+            a = an;
+        }
+        console.timeEnd();
+        return a.add(b).pow(2).div(t.times(4)).toString().slice(0, n + 2);
+    }
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/atelier-heath-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
