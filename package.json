@@ -1,0 +1,27 @@
+{
+  "name": "threadjs",
+  "version": "1.0.0",
+  "description": "Simply, lightweight and easy multi-thread library",
+  "main": "dist/thread.min.js",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-uglify": "^2.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deep-rain/thread.js.git"
+  },
+  "author": "deep-rain.com and other contributors",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/deep-rain/thread.js/issues"
+  },
+  "homepage": "https://github.com/deep-rain/thread.js#readme"
+}
