@@ -10,7 +10,7 @@
 
     var getEmbeddedCode = function(s) {
         return CODE.replace(REPLACE_SEQUENCE, s);
-    }
+    };
 
     window.Thread = (function() {
 
@@ -57,7 +57,7 @@
 
         Deferred.prototype.progress = function(func) {
             this.progressQueues.push(func);
-        }
+        };
 
         Deferred.prototype.resolve = function(obj) {
             this.isDone = true;
@@ -66,13 +66,13 @@
                 q(obj);
             });
             return this;
-        }
+        };
 
         Deferred.prototype.notify = function(obj) {
             this.progressQueues.forEach(function(q) {
                 q(obj);
             });
-        }
+        };
 
         Deferred.prototype.reject = function(obj) {
             this.isFailed = true;
@@ -81,7 +81,7 @@
                 q(obj);
             });
             return this;
-        }
+        };
 
         // Thread class
         var Thread = function(func, depends) {
@@ -138,7 +138,7 @@
                 throw new Error("thread has been closed.");
             }
 
-            var json = JSON.stringify(obj)
+            var json = JSON.stringify(obj);
             this.worker.postMessage(json);
             return this;
         };
@@ -164,18 +164,17 @@
         Thread.prototype.done = function(f) {
             this.deferred.done(f);
             return this;
-        }
-
+        };
 
         Thread.prototype.fail = function(f) {
             this.deferred.fail(f);
             return this;
-        }
+        };
 
         Thread.prototype.progress = function(f) {
             this.deferred.progress(f);
             return this;
-        }
+        };
 
         return Thread;
     })();
