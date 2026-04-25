@@ -1,4 +1,19 @@
 # thread.js
+
+> **Notice: End of Life**
+>
+> This project is no longer maintained. For new projects, we recommend [Comlink](https://github.com/GoogleChromeLabs/comlink), which provides a modern, type-safe API for Web Workers.
+>
+> The repository is archived for historical reference. Existing users may continue to use the library as-is, but no further updates, bug fixes, or security patches will be provided.
+>
+> ---
+>
+> **お知らせ: メンテナンス終了 (EOL)**
+>
+> 本プロジェクトは保守を終了しました。新規プロジェクトでは [Comlink](https://github.com/GoogleChromeLabs/comlink) のご利用を推奨します。
+>
+> 本リポジトリは過去の参照用としてアーカイブ保存されます。既存利用者は引き続き利用可能ですが、今後のアップデート・バグ修正・セキュリティパッチは提供されません。
+
 Simple, lightweight and easy multi-thread JavaScript library
 
 [Official WebSite](https://threadjs.deep-rain.com/)
